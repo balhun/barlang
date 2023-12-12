@@ -24,28 +24,71 @@
             border: 1px solid lightgrey;
         }
         .small_icon:hover { background-color: greenyellow;}
+        #hibas { background-color: red;}
     </style>
     <script>
         let elso = [];
-        let masodik = [];
         let harmadik = [1, 2, 3, 4, 5, 6, 7, 8];
+        let counter = 0;
+        let helyes = 0;
+        let elozo_hibas = false;
+
         function initialize() {
+            feltolt_elso();
+            for (let i of harmadik) {document.getElementById("harmadik").innerHTML += "<img class='small_icon' src='icon" + i + "k.png' onclick='katt(" + i + ")'>"}
+        }
+
+        function feltolt_elso() {
             for (let i = 1; i < 7; i++) {
                 let rand = Math.floor(Math.random()*8+1);
                 elso.push(rand);
-                console.log(rand);
                 document.getElementById("elso").innerHTML += "<img src='icon" + rand + "n.png'>";
             }
-            for (let i of harmadik) {document.getElementById("harmadik").innerHTML += "<img class='small_icon' src='icon" + i + "k.png' onclick='katt(" + i + ")'>"}
+            console.log(elso);
         }
+
         function katt(szam) {
             console.log(szam);
+            if (elozo_hibas == false) {
+                if (counter < 6) {
+                    if (elso[counter] == szam) {
+                        helyes++;
+                        counter++;
+                        elozo_hibas = false;
+                        document.getElementById("masodik").innerHTML += "<img src='icon" + szam + "n.png'>";
+                    } else {
+                        elozo_hibas = true;
+                        document.getElementById("masodik").innerHTML += "<img id='hibas' src='icon" + szam + "n.png'>"
+                    }
+                } else {
+                    document.getElementById("masodik").innerHTML = "";
+                    document.getElementById("elso").innerHTML = "";
+                    elso = [];
+                    counter = 0;
+                    helyes = 0;
+                    elozo_hibas = false;
+                    feltolt_elso();
+                }
+            } else {
+                document.getElementById("masodik").innerHTML = "";
+                document.getElementById("elso").innerHTML = "";
+                elso = [];
+                counter = 0;
+                helyes = 0;
+                elozo_hibas = false;
+                feltolt_elso();
+            }
+            if (helyes == 6) {
+                document.getElementById("masodik").setAttribute("style", "background-color: lightgreen;");
+            } else {
+                document.getElementById("masodik").setAttribute("style", "background-color: white;");
+            }
         }
     </script>
 </head>
 <body onload="initialize();">
     <div class="tomb" id="elso"></div>
-    <div class="tomb" id="masodik"></div>
+    <div class="tomb" id="masodik" style="background-color: white;"></div>
     <div class="tomb" id="harmadik"></div>
     
 </body>
