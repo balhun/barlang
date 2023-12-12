@@ -18,11 +18,35 @@
             text-align: center;
         }
         #masodik{height: 96px;}
+        .small_icon {
+            margin: 1px;
+            padding: 2px;
+            border: 1px solid lightgrey;
+        }
+        .small_icon:hover { background-color: greenyellow;}
     </style>
+    <script>
+        let elso = [];
+        let masodik = [];
+        let harmadik = [1, 2, 3, 4, 5, 6, 7, 8];
+        function initialize() {
+            for (let i = 1; i < 7; i++) {
+                let rand = Math.floor(Math.random()*8+1);
+                elso.push(rand);
+                console.log(rand);
+                document.getElementById("elso").innerHTML += "<img src='icon" + rand + "n.png'>";
+            }
+            for (let i of harmadik) {document.getElementById("harmadik").innerHTML += "<img class='small_icon' src='icon" + i + "k.png' onclick='katt(" + i + ")'>"}
+        }
+        function katt(szam) {
+            console.log(szam);
+        }
+    </script>
 </head>
-<body>
+<body onload="initialize();">
     <div class="tomb" id="elso"></div>
     <div class="tomb" id="masodik"></div>
     <div class="tomb" id="harmadik"></div>
+    
 </body>
 </html>
